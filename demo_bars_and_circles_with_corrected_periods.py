@@ -11,6 +11,15 @@ OUTPUT_REP = r"./produced_images"
 # Correct too short periods : (In the following example Colomb period is too short compared with other periods.
 # It can't be represented directly and must be represented as a date of as an enlarged period
 def correct_narrow_periods(begin, end, threshold=15):
+    """
+    Correct for too short periods
+
+    :param begin: list of beginnings
+    :param end: list of ends
+    :param threshold: list of corrected ends
+    :return:
+    """
+
     rep_end = []
     for i in range(len(begin)):
         if end[i] - begin[i] > threshold:
@@ -56,11 +65,17 @@ def demo_circles():
     ax.set_yticks([])  # no y labels
     plt.savefig(os.path.join(OUTPUT_REP,"mortalis.svg"))
 
-def demo_historic_graph_1(begin, end):
+def demo_historic_graph_1():
+    event = np.array(['Antiquity', 'Egypt', 'W.R.Empire', 'E.R.Empire', 'Writing', 'C.Colomb', 'Middle Ages'])
+    begin = np.array([-3400, -3150, 285, 330, -3400, 1492, 476])
+    end = np.array([476, 30, 476, 1453, -3300, 1493, 1492])
+
     end_rep = correct_narrow_periods(begin, end)
     plt.barh(range(len(begin)), end_rep-begin, left=begin, align='center')
     plt.yticks(range(len(begin)), event)
-    plt.xlim(-3500, 2000)
+    plt.xlim(-3700, 3000)
+    plt.title("Historical periods")
+    plt.tight_layout()
 
 
 class Paleo_period():
@@ -88,11 +103,8 @@ class Paleo_period():
 
 
 if __name__ == '__main__':
-    event = np.array(['Antiquity', 'Egypt', 'W.R.Empire', 'E.R.Empire', 'Writing', 'C.Colomb', 'Middle Ages'])
-    begin = np.array([-3400, -3150, 285, 330, -3400, 1492, 476])
-    end = np.array([476, 30, 476, 1453, -3300, 1493, 1492])
-    demo_historic_graph_1(begin, end)
 
+    demo_historic_graph_1()
     plt.show()
     demo_circles()
     plt.savefig(os.path.join(OUTPUT_REP,"periods.svg"))
