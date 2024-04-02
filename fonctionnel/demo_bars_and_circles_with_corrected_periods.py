@@ -53,7 +53,7 @@ def histo_scatter(fig, ax, years, datas, names=None,  factor = 10000, text_shift
 
 def demo_circles():
 
-    epi_df = pd.read_csv('data_epidemie.csv')
+    epi_df = pd.read_csv('./data/data_epidemie.csv')
     fig,ax = plt.subplots(1, figsize= (13,5))
     # Shift for text : points are designated by their index or their event name
     decalages = { 2 : -0.2, 3:+0.1, "Peste noire":-0.3, 5:0.3, 6:-0.2}
